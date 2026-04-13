@@ -1,5 +1,3 @@
-# cybersecurity-learning-journal
-
 # Cybersecurity Learning Journal
 
 This repository documents my learning journey in cybersecurity, CTFs, open source contributions, and technical workflow.
