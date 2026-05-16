@@ -1,1 +1,0 @@
-So this is the starting of my CPTS Certificate journey from today 12 May, 2026. As I think i keep forgeting what i have been learning, Lets start from scratch with the basics. In this section, I will cover my A to Z learning journey one by one in a regular basis.
