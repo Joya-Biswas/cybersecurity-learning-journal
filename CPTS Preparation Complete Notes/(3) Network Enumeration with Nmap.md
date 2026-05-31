@@ -31,6 +31,7 @@
 | `-g`                 | Specifies the source port for the scan.                                |
 | `--dns-server <ns>`  | DNS resolution is performed by using a specified name server.          |
 
+
 ## Output Options
 
 |**Nmap Option**|**Description**|
@@ -135,3 +136,99 @@ The network communication looked like this:
 6. RST      → Reset/reject connection
 7. FIN      → Gracefully close connection
 ```
+
+### Section 7: Scripting
+
+Visit ```ls /usr/share/nmap/scripts/``` and find scripts that applicable. Here ``` --script vuln, banner, smtp-commands```  are taught.
+
+# Firewall and IDS/IPS
+
+Nmap's TCP ACK scan (`-sA`) method is much harder to filter for firewalls and IDS/IPS systems than regular SYN (`-sS`) or Connect scans (`sT`) because they only send a TCP packet with only the `ACK` flag, not ```syn```. So the firewall cannot determine whether the connection was first established from the external network or the internal network. But with `-sA` We can trigger certain security measures.
+
+### Decoy
+
+`-D RND:5` With this method, Nmap generates various random IP addresses inserted into the IP header and Our real IP address is then randomly placed between the generated IP addresses. 5 means generates 5 Ip's.
+
+Again, `-S different_ip -e tun0` 
+Scans the target by using different source IP address,
+`-e tun0` Sends all requests through the specified interface.
+
+### DNS Proxying
+
+By default, Nmap performs **reverse DNS lookups** to convert IP addresses into hostnames.
+
+Example:
+
+```bash
+nmap 10.10.10.5
+```
+
+Nmap may automatically ask:
+
+```text
+What hostname belongs to 10.10.10.5?
+```
+
+This DNS request is usually sent over **UDP port 53**.
+
+---
+
+#### Using a Specific DNS Server
+
+You can tell Nmap to use a particular DNS server:
+
+```bash
+nmap --dns-server 10.10.10.1 10.10.10.5
+```
+
+Example:
+
+Imagine you compromise a machine in a DMZ and discover the internal DNS server:
+
+```text
+10.10.10.1
+```
+
+The internal DNS server may know about hosts that public DNS servers cannot see:
+
+```text
+dev.internal.local
+dc01.internal.local
+fileserver.internal.local
+```
+
+This can reveal additional targets inside the network.
+
+---
+
+#### Using Source Port 53
+
+Some firewalls trust DNS traffic because DNS servers regularly communicate over port 53.
+
+Nmap allows you to make your scan appear as if it originates from port 53:
+
+```bash
+nmap --source-port 53 10.10.10.5
+```
+
+Example:
+
+Normally:
+
+```text
+Your PC (port 50000) → Firewall → Blocked
+```
+
+With source port 53:
+
+```text
+Your PC (port 53) → Firewall → Allowed
+```
+
+because the firewall may assume the traffic is legitimate DNS traffic.
+
+# TEST MACHINE
+
+For **section 10** --> it is simply finding the operating system. But to make it silent, just use `-source-port 53,-sV, -D RND:5` or use whatweb.
+
+For **section 11** ---> simply scan with `-sU` as mentioned, and dont forget to use `-sV` to grab the version banner.
