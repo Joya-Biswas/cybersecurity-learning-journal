@@ -232,3 +232,9 @@ because the firewall may assume the traffic is legitimate DNS traffic.
 For **section 10** --> it is simply finding the operating system. But to make it silent, just use `-source-port 53,-sV, -D RND:5` or use whatweb.
 
 For **section 11** ---> simply scan with `-sU` as mentioned, and dont forget to use `-sV` to grab the version banner.
+
+#### For **section 12** ---> 
+
+- First i tried every possible method i learned in this module, but found only two ports every time. Then scanned all the ports usin `sU`. Interestingly i found 3 UDP ports. But later on, that also seemed useless. 
+- Anyway i forgot to use --`source-port 53` while checking all ports with `-p-`.  Then I did it, and found a new port. Then I tried to get the banner of that port using `nc -nv -p 53`, but nothing was working as it was saying port 53 is already binded!! I tried to stop it using `sudo systemctl stop dnsmasq`, but was not working.
+- Well then i googled, and found out through the walkthroughs that this is the issue in local parrotOS. So, do the same with your own VM and you can get the flag by `nc -nv -p 53 10.129.2.47 50000` 
