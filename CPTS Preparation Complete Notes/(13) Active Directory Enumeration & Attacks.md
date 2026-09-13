@@ -3227,3 +3227,43 @@ The resulting NTLM hash was:
 
 The important concept is that **DCSync does not mean I am simply dumping a local SAM**. It abuses directory replication privileges to make a domain controller provide credential data for a domain account.
 
+
+
+
+# A little note: Why would I use port forwarding if `autoroute` is already configured?
+
+Because they have different purposes:
+
+| Technique               | Purpose                                                                   |
+| ----------------------- | ------------------------------------------------------------------------- |
+| **Autoroute**           | Tell Metasploit **which internal network is reachable through the pivot** |
+| **SOCKS + ProxyChains** | Let many applications use that routed path                                |
+| **`portfwd`**           | Create a **specific local port** for one internal service                 |
+
+So if you want to RDP to:
+
+```text
+172.16.5.19:3389
+```
+
+you can either use the **SOCKS approach**:
+
+```bash
+proxychains xfreerdp /v:172.16.5.19
+```
+
+or create a **specific port forward**:
+
+```text
+meterpreter > portfwd add -l 3300 -p 3389 -r 172.16.5.19
+```
+
+and then:
+
+```bash
+xfreerdp /v:127.0.0.1:3300
+```
+
+**You don't normally need both for the same connection.**
+
+
