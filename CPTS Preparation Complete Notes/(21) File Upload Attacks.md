@@ -326,12 +326,6 @@ shell.gif.phar
 
 The main mistake was assuming that because the final `.jpeg` was accepted, I should keep `.jpeg` as the final extension throughout the testing. I also relied too much on the **small custom wordlist provided by HTB**. It did not contain enough useful extensions, so I needed to expand the wordlist and eventually fuzz multiple filename positions instead of testing only the middle value.
 
-```
-
-> wordlist.txt; for ext1 in '.php' '.phps' '.phar' '.phtml' '.pht' '.php3' '.php4' '.php5' '.php7' '.php8'; do for ext2 in '.jpg' '.jpeg' '.jpe' '.png' '.gif' '.webp'; do echo "shell$ext1$ext2" >> wordlist.txt; echo "shell$ext2$ext1" >> wordlist.txt; done; done; for char in '%20' '%0a' '%00' '%0d0a' '/'; do for ext in '.php' '.phps' '.phar' '.phtml' '.pht'; do echo "shell$char$ext.jpg" >> wordlist.txt; echo "shell$ext$char.jpg" >> wordlist.txt; echo "shell.jpg$char$ext" >> wordlist.txt; echo "shell.jpg$ext$char" >> wordlist.txt; done; done
-
-```
-
 
 ---
 ---
@@ -611,7 +605,7 @@ Different jobs. Don't mix them up.
 
 ## Step 5 — Fuzzing filenames
 
-I made a wordlist according to the filename pattern i found:
+I made a wordlist according to the filename pattern i found (well i hope you know by now that you need to include a PHP archive to bypass this and make the attack work, and according to the exemption list found in that `upload.php`, include and check for other type PHP archives except `.php`, `.phps` or `.phtml`):
 
 
 ```bash
