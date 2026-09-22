@@ -466,7 +466,7 @@ Example: vulnerable **FFmpeg** versions have had **AVI → XXE (XML External Ent
 
 ## Step 1 — The browser check
 
-The contact page''s view page source finds:
+The contact page's view page source finds:
 
 ```text
 /contact/submit.php
@@ -575,9 +575,9 @@ The whitelist is looking for a 3–4 letter extension ending in g, and the $ pin
 
 And none of the other checks touch the name either, from content type and mime type codes given. So the filename is really just three requirements: 
 
-1. the name can start with anything but must not contain `.php`, `.phps` or `.phtml`
-2. the name must **end** in something like `.jpg` / `.png`
-3. a PHP-runnable extension has to sit somewhere in the middle so the server hands the file to PHP
+1. Including the Date at first, then the name can start with anything but must not contain `.php`, `.phps` or `.phtml`
+2. the name must **end** in something with `g` like `.jpg` / `.png`
+3. **a PHP-runnable extension has to sit somewhere in the middle so the server hands the file to PHP**
 
 
 ---
