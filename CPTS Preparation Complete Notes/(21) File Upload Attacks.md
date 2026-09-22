@@ -662,7 +662,7 @@ When an app says "images only," SVG is the one image format that isn't really an
 |`date(...)` or `md5(...)` in the name|File gets renamed. Fix your URL.|
 |Blacklist on `.php`|Try other extensions.|
 |No `^` or `$` on the regex|It matches anywhere in the string.|
-|Whitelist ending in `$`|End-of-name tricks fail. Use a double extension.|
+|Whitelist ending in `$`|means Match the end of the string with the rule.|
 |Whitelist with **no** `$`|`shell.jpg.php` works — the extension just has to show up somewhere.|
 
 ## Extensions to try when `.php` is blocked
