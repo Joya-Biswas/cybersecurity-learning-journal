@@ -14,6 +14,8 @@ HTTP has **9 commonly used methods** that web servers can accept:
 | `PATCH`   | Partially modify a resource                                     |
 | `CONNECT` | Establishes a tunnel to the requested server                    |
 | `TRACE`   | Sends the request back to the client for diagnostic purposes    |
+
+
 **HTTP Verb Tampering** → Changing the HTTP method to bypass access controls; e.g., `GET /admin` is blocked, but changing it to `POST /admin` works and reveals information.
 
 While many automated vulnerability scanning tools can consistently identify HTTP Verb Tampering vulnerabilities caused by insecure server configurations, they usually miss identifying HTTP Tampering vulnerabilities caused by insecure coding. This is because the first type can be easily identified once we bypass an authentication page, while the other needs active testing to see whether we can bypass the security filters in place. If we want to specify a single method, we can use safe keywords, like `LimitExcept` in Apache, `http-method-omission` in Tomcat, and `add`/`remove` in ASP.NET, which cover all verbs except the specified ones. To avoid HTTP Verb Tampering vulnerabilities in our code, `we must be consistent with our use of HTTP methods` and ensure that the same method is always used for any specific functionality across the web application.
